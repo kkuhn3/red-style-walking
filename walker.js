@@ -48,8 +48,6 @@ function Walker(height, width, canvas){
 				this.inWalk = 17;
 				this.xCurDir = this.xDir;
 				this.yCurDir = this.yDir;
-				this.xDir = 0;
-				this.yDir = 0;
 			}
 		}
 		else if(this.inWalk < 1 && this.inA > 0){
