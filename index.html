@@ -11,16 +11,16 @@
 	<body>
 		<div style='display:none;' id='imagePreloader'>
 		</div>
-		<canvas id='canvas' width='550' height='550' style=""></canvas>
+		<canvas id='canvas' width='561' height='561' style=""></canvas>
 	</body>
 	<script src='walker.js'></script>
 	<script>
 		var xdir = 0;
-		var ydir = 1;
+		var ydir = 0;
 		function init(){
 			walker = new Walker(11, 11, canvas);
 			walker.init();
-			walker.draw();
+			setInterval(walker.drawFrame.bind(walker), 1 / 30 * 1000);
 		}
 		$(document).ready(function(){init();});
 		
@@ -40,6 +40,9 @@
 			if(e.which === 97){
 				xdir = -1;
 				ydir = 0;
+			}
+			if(e.which === 107){
+				walker.hitA();
 			}
 			walker.newDir(xdir, ydir);
 		});
