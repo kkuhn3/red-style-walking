@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="index.css">
+		<style>
+			#hidn {display:none;}
+		</style>
+	</head>
+	<body>
+		<div style='display:none;' id='imagePreloader'>
+		</div>
+		<canvas id='canvas' width='550' height='550' style=""></canvas>
+	</body>
+	<script src='walker.js'></script>
+	<script>
+		var xdir = 0;
+		var ydir = 1;
+		function init(){
+			walker = new Walker(11, 11, canvas);
+			walker.init();
+			walker.draw();
+		}
+		$(document).ready(function(){init();});
+		
+		$(document).keypress(function(e){
+			if(e.which === 119){
+				xdir = 0;
+				ydir = 1;
+			}
+			if(e.which === 100){
+				xdir = 1;
+				ydir = 0;
+			}
+			if(e.which === 115){
+				xdir = 0;
+				ydir = -1;
+			}
+			if(e.which === 97){
+				xdir = -1;
+				ydir = 0;
+			}
+			walker.newDir(xdir, ydir);
+		});
+	</script>
+</html>
