@@ -10,11 +10,20 @@
 		<div style='display:none;' id='imagePreloader'>
 		</div>
 		<canvas id='canvas' width='561' height='561' style=""></canvas>
+		<input type="text" id="upButtonInput" value="w">
+		<input type="text" id="rightButtonInput" value="d">
+		<input type="text" id="downButtonInput" value="s">
+		<input type="text" id="leftButtonInput" value="a">
+		<input type="button" id="resetKeys" value="Reset Key Bindings" onclick="resetKeys();">
 	</body>
 	<script src='walker.js'></script>
 	<script>
 		var xdir = 0;
 		var ydir = 0;
+		var upButtonCode = "KeyW";
+		var rightButtonCode = "KeyD";
+		var downButtonCode = "KeyS";
+		var leftButtonCode = "KeyA";
 		function init(){
 			walker = new Walker(11, 11, canvas);
 			walker.init();
@@ -23,20 +32,19 @@
 		$(document).ready(function(){init();});
 		
 		$(document).keypress(function(e){
-			console.log(e.which);
-			if(e.which === 119){
+			if(e.originalEvent.code === upButtonCode){
 				xdir = 0;
 				ydir = 1;
 			}
-			if(e.which === 100){
+			if(e.originalEvent.code === rightButtonCode){
 				xdir = 1;
 				ydir = 0;
 			}
-			if(e.which === 115){
+			if(e.originalEvent.code === downButtonCode){
 				xdir = 0;
 				ydir = -1;
 			}
-			if(e.which === 97){
+			if(e.originalEvent.code === leftButtonCode){
 				xdir = -1;
 				ydir = 0;
 			}
@@ -50,5 +58,33 @@
 				walker.newDir(xdir, ydir);
 			}
 		});
+
+		$(document.getElementById("upButtonInput")).keyup(function(e){
+			upButtonCode = e.originalEvent.code;
+			document.getElementById("rightButtonInput").focus();
+		});
+		$(document.getElementById("rightButtonInput")).keyup(function(e){
+			rightButtonCode = e.originalEvent.code;
+			document.getElementById("downButtonInput").focus();
+		});
+		$(document.getElementById("downButtonInput")).keyup(function(e){
+			downButtonCode = e.originalEvent.code;
+			document.getElementById("leftButtonInput").focus();
+		});
+		$(document.getElementById("leftButtonInput")).keyup(function(e){
+			leftButtonCode = e.originalEvent.code;
+		});
+
+		function resetKeys(){
+			var upButtonCode = "";
+			var rightButtonCode = "";
+			var downButtonCode = "";
+			var leftButtonCode = "";
+			document.getElementById("upButtonInput").value = "";
+			document.getElementById("rightButtonInput").value = "";
+			document.getElementById("downButtonInput").value = "";
+			document.getElementById("leftButtonInput").value = "";
+			document.getElementById("upButtonInput").focus();
+		}
 	</script>
 </html>
