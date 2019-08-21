@@ -11,7 +11,9 @@ function Walker(height, width, canvas){
 	this.yCurDir = 0;
 	this.inWalk = 0;
 	this.inA = 0;
+	this.doStop = true;
 	this.init = function(){
+		ctx.save();
 		this.draw();
 	}
 	this.draw = function(){
@@ -38,16 +40,26 @@ function Walker(height, width, canvas){
 	this.newDir = function(xDir, yDir){
 		this.xDir = 3*xDir;
 		this.yDir = 3*yDir;
+		this.doStop = false;
 	}
 	this.hitA = function(){
 		this.inA = 2;
 	}
+	this.stop = function(){
+		this.doStop = true;
+	}
 	this.drawFrame = function(){
 		if(this.inWalk < 1 && this.inA < 1){
 			if(this.xDir !== 0 || this.yDir !== 0){
-				this.inWalk = 17;
-				this.xCurDir = this.xDir;
-				this.yCurDir = this.yDir;
+				if(this.doStop){
+					this.xDir = 0;
+					this.yDir = 0;
+				}
+				else{
+					this.inWalk = 17;
+					this.xCurDir = this.xDir;
+					this.yCurDir = this.yDir;
+				}
 			}
 		}
 		else if(this.inWalk < 1 && this.inA > 0){
